@@ -60,14 +60,13 @@ class Game:
 
         print(maximum_substring_length)
         if get_score_mode == "1":
-            if len(failure_points) == 0:    # if failure_points is empty => chromosome is win.
-                scores += 5
+            if len(failure_points) == 0: scores += 5    # if failure_points is empty => chromosome is win.
 
         return maximum_substring_length + scores
 
 
-g = Game("__M_____")
+# g = Game("____G_____")
 
 
 #
-print(g.get_score("21000200", "1"))
+# print(g.get_score("2101020000", "1"))
