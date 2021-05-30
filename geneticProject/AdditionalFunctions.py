@@ -32,5 +32,8 @@ def generate_initial_population(number_of_population, chromosome_length):
     for i in range(number_of_population):
         chromosome_string = generate_randomly_string(chromosome_length)
         chromosome = Chromosome(chromosome_string, 0, [])
+        array_of_chromosome.append(chromosome)
+
+    return array_of_chromosome
 
 
