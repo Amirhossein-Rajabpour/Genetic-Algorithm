@@ -33,8 +33,8 @@ class Game:
         # return steps == self.current_level_len - 1, steps
 
 
-# ddd = , "___G_M___L_"
-g = Game(["____G__L__"])
+
+g = Game(["____G__L__", "___G_M___L_"])
 g.load_next_level()
 
 # This outputs (False, 4)
