@@ -38,7 +38,7 @@ def generate_initial_population(number_of_population, chromosome_length):
 def sort_by_score(array_of_chromosomes):
     # sort by their scores
     # return sorted array
-    pass
+    return array_of_chromosomes.sort(key=lambda x: x.score, reverse=False)
 
 
 def selection(population, array_of_new_chromosomes, array_of_prev_chromosomes):
@@ -52,7 +52,7 @@ def selection(population, array_of_new_chromosomes, array_of_prev_chromosomes):
         next_generation.append(chromosome)
 
     sorted_array_of_new_chromosomes = sort_by_score(array_of_new_chromosomes)
-    for chromosome in sorted_array_of_prev_chromosomes[:math.ceil(population*0.7)]:
+    for chromosome in sorted_array_of_new_chromosomes[:math.ceil(population*0.7)]:
         next_generation.append(chromosome)
 
     return next_generation
