@@ -1,5 +1,6 @@
 import random
 import Chromosome
+import math
 
 
 def generate_randomly_string(length):
@@ -32,5 +33,28 @@ def generate_initial_population(number_of_population, chromosome_length):
     for i in range(number_of_population):
         chromosome_string = generate_randomly_string(chromosome_length)
         chromosome = Chromosome(chromosome_string, 0, [])
+
+
+def sort_by_score(array_of_chromosomes):
+    # sort by their scores
+    # return sorted array
+    pass
+
+
+def selection(population, array_of_new_chromosomes, array_of_prev_chromosomes):
+    # 70% of new population is from new chormosomes (children of previous layer)
+    # 30% of new population is from chromosomes in the previous layer
+    next_generation = []
+
+    # sort array_of_prev_chromosomes and take top chromosomes
+    sorted_array_of_prev_chromosomes = sort_by_score(array_of_prev_chromosomes)
+    for chromosome in sorted_array_of_prev_chromosomes[:math.ceil(population*0.3)]:
+        next_generation.append(chromosome)
+
+    sorted_array_of_new_chromosomes = sort_by_score(array_of_new_chromosomes)
+    for chromosome in sorted_array_of_prev_chromosomes[:math.ceil(population*0.7)]:
+        next_generation.append(chromosome)
+
+    return next_generation
 
 
