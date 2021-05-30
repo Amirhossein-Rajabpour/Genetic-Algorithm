@@ -1,41 +1,64 @@
+import copy
+
+
 class Game:
-    def __init__(self, levels):
-        # Get a list of strings as levels
+    def __init__(self, game_plate):
+        # Get a strings as game_plate
         # Store level length to determine if a sequence of action passes all the steps
+        self.game_plate = game_plate
 
-        self.levels = levels
-        self.current_level_index = -1
-        self.current_level_len = 0
+    def calculate_maximum_substring_length(self, failure_points):
+        game_plate = self.game_plate
+        length_game_plate = len(game_plate)
+        substring_length = []
 
-    def load_next_level(self):
-        self.current_level_index += 1
-        self.current_level_len = len(self.levels[self.current_level_index])
+        failure_points.insert(0, 0)
+        failure_points.append(length_game_plate)
+
+        for i in range(1, len(failure_points)):
+            length = failure_points[i] - failure_points[i - 1]
+            substring_length.append(length)
+
+        return max(substring_length)
 
     def get_score(self, actions):
         # Get an action sequence and determine the steps taken/score
         # Return a tuple, the first one indicates if these actions result in victory
         # and the second one shows the steps taken
 
+        game_plate = self.game_plate
+        length_game_plate = len(game_plate)
         failure_points = []
-        current_level = self.levels[self.current_level_index]
         steps = 0
-        for i in range(self.current_level_len - 1):
-            current_step = current_level[i]
-            if (current_step == '_'):
+        scores = 0
+        for i in range(length_game_plate):
+            current_step = game_plate[i]
+            if current_step == '_':
                 steps += 1
-            elif (current_step == 'G' and actions[i - 1] == '1'):
+            elif current_step == 'G' and actions[i - 1] == '1':
                 steps += 1
-            elif (current_step == 'L' and actions[i - 1] == '2'):
+            elif current_step == "G" and i - 2 >= 0 and actions[i - 2] == "1":  # score section project
+                scores += 2
+            elif current_step == "M" and actions[i - 1] != "1":  # score section project
+                scores += 2
+            elif i == length_game_plate - 1 and current_step == "1":  # score section project
+                scores += 1
+            elif current_step == 'L' and actions[i - 1] == '2':
                 steps += 1
             else:
                 failure_points.append(i)
-        return failure_points
-        # return steps == self.current_level_len - 1, steps
+
+        failure_points_copy = copy.deepcopy(failure_points)
+        maximum_substring_length = self.calculate_maximum_substring_length(failure_points_copy)
+
+        if len(failure_points) == 0:    # if failure_points is empty => chromosome is win.
+            scores += 5
+
+        return maximum_substring_length + scores
+
+
+g = Game("__G____L__")
 
 
 
-g = Game(["____G__L__", "___G_M___L_"])
-g.load_next_level()
-
-# This outputs (False, 4)
-print(g.get_score("0000000000"))
+print(g.get_score("0000002000"))
