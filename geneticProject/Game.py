@@ -21,7 +21,7 @@ class Game:
 
         return max(substring_length)
 
-    def get_score(self, actions):
+    def get_score(self, actions, get_score_mode):
         # Get an action sequence and determine the steps taken/score
         # Return a tuple, the first one indicates if these actions result in victory
         # and the second one shows the steps taken
@@ -38,27 +38,36 @@ class Game:
             elif current_step == 'G' and actions[i - 1] == '1':
                 steps += 1
             elif current_step == "G" and i - 2 >= 0 and actions[i - 2] == "1":  # score section project
+                steps += 1
                 scores += 2
-            elif current_step == "M" and actions[i - 1] != "1":  # score section project
-                scores += 2
-            elif i == length_game_plate - 1 and current_step == "1":  # score section project
-                scores += 1
+            elif current_step == "M":  # score section project
+                if actions[i - 1] != "1": scores += 2
+                steps += 1
+            # elif i == length_game_plate - 1 and current_step == "1":  # score section project
+            #     steps += 1
+            #     scores += 1
             elif current_step == 'L' and actions[i - 1] == '2':
                 steps += 1
             else:
                 failure_points.append(i)
 
+        if actions[-1] == "1": scores += 1 # score section project (when final action is jump and move right)
+
+        print(scores)
+        print(failure_points)
         failure_points_copy = copy.deepcopy(failure_points)
         maximum_substring_length = self.calculate_maximum_substring_length(failure_points_copy)
 
-        if len(failure_points) == 0:    # if failure_points is empty => chromosome is win.
-            scores += 5
+        print(maximum_substring_length)
+        if get_score_mode == "1":
+            if len(failure_points) == 0:    # if failure_points is empty => chromosome is win.
+                scores += 5
 
         return maximum_substring_length + scores
 
 
-g = Game("__G__M___")
+g = Game("__M_____")
 
 
-
-print(g.get_score("0000000000"))
+#
+print(g.get_score("21000200", "1"))
