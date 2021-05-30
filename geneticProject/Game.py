@@ -57,8 +57,8 @@ class Game:
         return maximum_substring_length + scores
 
 
-g = Game("__G____L__")
+g = Game("__G__M___")
 
 
 
-print(g.get_score("0000002000"))
+print(g.get_score("0000000000"))
