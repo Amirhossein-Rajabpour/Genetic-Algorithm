@@ -100,7 +100,7 @@ def cross_over(chromosome1, chromosome2, crossover_point, crossover_mode):
     chromosome_length = len(chromosome1.string)
 
     if crossover_mode == 'random':
-        crossing_point = random.random(0,chromosome_length)
+        crossing_point = random.random(0,chromosome_length-1)
         offspring1 = chromosome1.string[:crossing_point] + chromosome2.string[crossing_point:]
         offspring2 = chromosome2.string[:crossing_point] + chromosome1.string[crossing_point:]
 
