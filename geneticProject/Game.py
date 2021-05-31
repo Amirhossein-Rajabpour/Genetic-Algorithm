@@ -62,7 +62,7 @@ class Game:
         if get_score_mode == "1":
             if len(failure_points) == 0: scores += 5    # if failure_points is empty => chromosome is win.
 
-        return maximum_substring_length + scores
+        return maximum_substring_length + scores, failure_points
 
 
 # g = Game("____G_____")

@@ -1,12 +1,13 @@
 import random, math
-from .AdditionalFunctions import *
+from AdditionalFunctions import *
+
 
 class Chromosome:
-    def __init__(self, string, score, generation):
+    def __init__(self, string, score, generation, failure_points):
         self.string = string
         self.score = score
-        # self.failure_points = failure_points
         self.generation = generation
+        self.failure_points = failure_points
 
 
 def selection(population, array_of_new_chromosomes, array_of_prev_chromosomes, selection_mode):
@@ -16,11 +17,12 @@ def selection(population, array_of_new_chromosomes, array_of_prev_chromosomes, s
 
     # sort array_of_prev_chromosomes and take top chromosomes
     sorted_array_of_prev_chromosomes = sort_by_score(array_of_prev_chromosomes)
-    next_generation += sorted_array_of_prev_chromosomes[:math.ceil(population * 0.3)] 
+    next_generation += sorted_array_of_prev_chromosomes[:math.ceil(population * 0.3)]
 
     if selection_mode == 'random':
         score_weights = return_scores(array_of_new_chromosomes)
-        next_generation += random.choices(list(array_of_new_chromosomes), weights=score_weights, k=math.ceil(population * 0.7))
+        next_generation += random.choices(list(array_of_new_chromosomes), weights=score_weights,
+                                          k=math.ceil(population * 0.7))
 
     elif selection_mode == 'best':
         sorted_array_of_new_chromosomes = sort_by_score(array_of_new_chromosomes)
@@ -35,7 +37,7 @@ def cross_over(chromosome1, chromosome2, crossover_point, crossover_mode):
     chromosome_length = len(chromosome1.string)
 
     if crossover_mode == 'random':
-        crossing_point = random.randint(0,chromosome_length-1)
+        crossing_point = random.randint(0, chromosome_length - 1)
         offspring1 = chromosome1.string[:crossing_point] + chromosome2.string[crossing_point:]
         offspring2 = chromosome2.string[:crossing_point] + chromosome1.string[crossing_point:]
 
@@ -51,4 +53,4 @@ def mutation(chromosome, mutatiom_probability):
     chromosome_length = len(chromosome.string)
     if random.random() < mutatiom_probability:
         # it can flip a random bit or it can flip a specified bit.
-        chromosome.string[random.randint(0,chromosome_length-1)]
+        chromosome.string[random.randint(0, chromosome_length - 1)]

@@ -6,7 +6,7 @@ import random
 
 # continuous two "2" movement is ok but continuous three "2" movement isn't ok!
 # continuous two "1" movement isn't ok
-def check_game_roles(current_string, new_char):
+def check_game_rules(current_string, new_char):
     res = True
     if len(current_string) >= 1 and new_char == "1" and current_string[-1] == "1":
         res = False
@@ -28,11 +28,11 @@ def generate_randomly_string(length):
             char = "0"
             i += 1
         elif 5 < random_number <= 8:
-            if check_game_roles(string, "1"):
+            if check_game_rules(string, "1"):
                 char = "1"
                 i += 1
         elif 8 < random_number <= 10:
-            if check_game_roles(string, "2"):
+            if check_game_rules(string, "2"):
                 char = "2"
                 i += 1
         string += char
@@ -54,8 +54,8 @@ def generate_initial_population(number_of_population, game_plate_string, score_m
     array_of_chromosome = []
     for i in range(number_of_population):
         chromosome_string = generate_randomly_string(chromosome_length)
-        chromosome_score = game.get_score(chromosome_string, score_mode)
-        chromosome = Chromosome(chromosome_string, chromosome_score, 1)
+        chromosome_score, chromosome_failure_points = game.get_score(chromosome_string, score_mode)
+        chromosome = Chromosome(chromosome_string, chromosome_score, 1, chromosome_failure_points)
         array_of_chromosome.append(chromosome)
 
     return array_of_chromosome
