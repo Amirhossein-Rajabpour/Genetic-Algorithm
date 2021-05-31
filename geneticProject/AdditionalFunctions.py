@@ -1,8 +1,7 @@
 from geneticProject.Chromosome import Chromosome
-from Chromosome import *
-from Game import *
+from .Chromosome import *
+from .Game import *
 import random
-import math
 
 
 # continuous two "2" movement is ok but continuous three "2" movement isn't ok!

@@ -1,5 +1,5 @@
-import random
-from AdditionalFunctions import *
+import random, math
+from .AdditionalFunctions import *
 
 class Chromosome:
     def __init__(self, string, score, generation):
