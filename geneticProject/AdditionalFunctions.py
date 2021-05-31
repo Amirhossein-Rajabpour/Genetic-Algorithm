@@ -95,16 +95,18 @@ def selection(population, array_of_new_chromosomes, array_of_prev_chromosomes, s
 
 
 def cross_over(chromosome1, chromosome2, crossover_point, crossover_mode):
+    # caution: chromosomes are objects here not their strings!
     offspring1, offspring2 = [], []
     chromosome_length = len(chromosome1.string)
 
     if crossover_mode == 'random':
         crossing_point = random.random(0,chromosome_length)
-        offspring1 = chromosome1[:crossing_point] + chromosome2[crossing_point:]
-        offspring2 = chromosome2[:crossing_point] + chromosome1[crossing_point:]
+        offspring1 = chromosome1.string[:crossing_point] + chromosome2.string[crossing_point:]
+        offspring2 = chromosome2.string[:crossing_point] + chromosome1.string[crossing_point:]
 
     elif crossover_mode == 'specified':
-        offspring1 = chromosome1[:crossover_point] + chromosome2[crossover_point:]
-        offspring2 = chromosome2[:crossover_point] + chromosome1[crossover_point:]
+        offspring1 = chromosome1.string[:crossover_point] + chromosome2.string[crossover_point:]
+        offspring2 = chromosome2.string[:crossover_point] + chromosome1.string[crossover_point:]
 
+    # TO DECIDE: here children are strings. but it's better to create their chromosome object here and return the objects
     return offspring1, offspring2
