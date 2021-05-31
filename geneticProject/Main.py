@@ -36,6 +36,9 @@ def main():
 
     # TO DO: call graphical interface code
 
+    # TO DO: plot average scores per generation
+    generation_average_scores = genetic.generation_average_scores
+
 
 
 if __name__ == "__main__":

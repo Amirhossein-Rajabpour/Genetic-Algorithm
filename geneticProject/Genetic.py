@@ -4,6 +4,12 @@ from geneticProject.Chromosome import *
 def is_end():
     pass
 
+def calculate_average_score(array_of_chromosomes):
+    sum_scores = 0
+    for chromosome in array_of_chromosomes:
+        sum_scores += chromosome.score
+    return sum_scores/len(array_of_chromosomes)
+    
 
 class Genetic:
     # population is a dictionary of generation and array of chromosome objects
@@ -15,9 +21,11 @@ class Genetic:
         self.crossover_mode = crossover_mode
         self.crossover_point = crossover_point
         self.best_answer = ''
+        self.generation_average_scores = {}
 
         current_generation = 2
         len_population = len(self.population[1])
+        self.generation_average_scores[1] = calculate_average_score(self.population[1])
 
         while not is_end():
 
@@ -40,6 +48,9 @@ class Genetic:
             # mutation step
             for chromosome in self.population[current_generation]:
                 mutation(chromosome, 0.1)
+
+            # TO DO: scores should be updated after mutation and crossover steps
+            self.generation_average_scores[current_generation] = calculate_average_score(self.population[current_generation])
             
             # selection step
             self.population[current_generation+1] = selection(len_population, self.population[current_generation], self.population[current_generation-1], self.selection_mode)
