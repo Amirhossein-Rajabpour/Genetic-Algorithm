@@ -1,5 +1,5 @@
 import random, math
-from AdditionalFunctions import *
+from geneticProject.AdditionalFunctions import *
 
 
 class Chromosome:
@@ -45,12 +45,16 @@ def cross_over(chromosome1, chromosome2, crossover_point, crossover_mode):
         offspring1 = chromosome1.string[:crossover_point] + chromosome2.string[crossover_point:]
         offspring2 = chromosome2.string[:crossover_point] + chromosome1.string[crossover_point:]
 
-    # TO DECIDE: here children are strings. but it's better to create their chromosome object here and return the objects
     return offspring1, offspring2
 
 
 def mutation(chromosome, mutatiom_probability):
-    chromosome_length = len(chromosome.string)
-    if random.random() < mutatiom_probability:
-        # it can flip a random bit or it can flip a specified bit.
-        chromosome.string[random.randint(0, chromosome_length - 1)]
+    chromosome_failure_points = chromosome.failure_points
+    for f_point_index in chromosome_failure_points:
+        if random.random() < mutatiom_probability:
+            # it mutate a failure character.
+            new_value = str((int(chromosome.string[f_point_index]) + 1) % 3)
+            left_part = chromosome.string[:f_point_index]
+            right_part = chromosome.string[f_point_index+1:]
+
+            chromosome.string = left_part + new_value + right_part
