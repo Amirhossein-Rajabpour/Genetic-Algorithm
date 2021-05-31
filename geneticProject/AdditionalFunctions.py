@@ -3,6 +3,7 @@ from Chromosome import *
 from Game import *
 import random
 import math
+import copy
 
 
 # continuous two "2" movement is ok but continuous three "2" movement isn't ok!
@@ -93,8 +94,17 @@ def selection(population, array_of_new_chromosomes, array_of_prev_chromosomes, s
     return next_generation
 
 
-def cross_over(chromosome1, chromosome2, crossover_points):
+def cross_over(chromosome1, chromosome2, crossover_point, crossover_mode):
+    offspring1, offspring2 = [], []
+    chromosome_length = len(chromosome1.string)
 
+    if crossover_mode == 'random':
+        crossing_point = random.random(0,chromosome_length)
+        offspring1 = chromosome1[:crossing_point] + chromosome2[crossing_point:]
+        offspring2 = chromosome2[:crossing_point] + chromosome1[crossing_point:]
 
-    # return offspring1, offspring2
-    pass
+    elif crossover_mode == 'specified':
+        offspring1 = chromosome1[:crossover_point] + chromosome2[crossover_point:]
+        offspring2 = chromosome2[:crossover_point] + chromosome1[crossover_point:]
+
+    return offspring1, offspring2
