@@ -8,12 +8,13 @@ def is_end():
 class Genetic:
     # population is a dictionary of generation and array of chromosome objects
     # => {1: [chromosome1, chromosome2, ...], 2:[chromosomeK, ...]}
-    def __init__(self, population, game_plate, selection_type, crossover_mode, crossover_point):
+    def __init__(self, population, game_plate, selection_mode, crossover_mode, crossover_point):
         self.population = population
         self.game_plate = game_plate
-        self.selection_type = selection_type
+        self.selection_mode = selection_mode
         self.crossover_mode = crossover_mode
         self.crossover_point = crossover_point
+        self.best_answer = ''
 
         current_generation = 2
         len_population = len(self.population[1])
@@ -41,6 +42,6 @@ class Genetic:
                 mutation(chromosome, 0.1)
             
             # selection step
-            self.population[current_generation+1] = selection(len_population, self.population[current_generation], self.population[current_generation-1], self.selection_type)
+            self.population[current_generation+1] = selection(len_population, self.population[current_generation], self.population[current_generation-1], self.selection_mode)
 
             current_generation += 1
