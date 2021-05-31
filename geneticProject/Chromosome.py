@@ -10,28 +10,28 @@ class Chromosome:
         self.failure_points = failure_points
 
 
-def selection(population, array_of_new_chromosomes, array_of_prev_chromosomes, selection_mode):
+def selection(len_population, array_of_new_chromosomes, array_of_prev_chromosomes, selection_mode):
     # 70% of new population is from new chormosomes (children of previous layer)
     # 30% of new population is from chromosomes in the previous layer
     next_generation = []
 
     # sort array_of_prev_chromosomes and take top chromosomes
     sorted_array_of_prev_chromosomes = sort_by_score(array_of_prev_chromosomes)
-    next_generation += sorted_array_of_prev_chromosomes[:math.ceil(population * 0.3)]
+    next_generation += sorted_array_of_prev_chromosomes[:math.ceil(len_population * 0.3)]
 
     if selection_mode == 'random':
         score_weights = return_scores(array_of_new_chromosomes)
         next_generation += random.choices(list(array_of_new_chromosomes), weights=score_weights,
-                                          k=math.ceil(population * 0.7))
+                                          k=math.ceil(len_population * 0.7))
 
     elif selection_mode == 'best':
         sorted_array_of_new_chromosomes = sort_by_score(array_of_new_chromosomes)
-        next_generation += sorted_array_of_new_chromosomes[:math.ceil(population * 0.7)]
+        next_generation += sorted_array_of_new_chromosomes[:math.ceil(len_population * 0.7)]
 
     return next_generation
 
 
-def cross_over(chromosome1, chromosome2, crossover_point, crossover_mode):
+def crossover(chromosome1, chromosome2, crossover_point, crossover_mode):
     # caution: chromosomes are objects here not their strings!
     offspring1, offspring2 = [], []
     chromosome_length = len(chromosome1.string)
