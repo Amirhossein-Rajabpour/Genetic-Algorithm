@@ -1,3 +1,4 @@
+from geneticProject.Chromosome import Chromosome
 from Chromosome import *
 from Game import *
 import random
@@ -67,18 +68,33 @@ def sort_by_score(array_of_chromosomes):
     return array_of_chromosomes.sort(key=lambda x: x.score, reverse=False)
 
 
-def selection(population, array_of_new_chromosomes, array_of_prev_chromosomes):
+def return_scores(array_of_chromosomes):
+    scores = [chromosome.score for chromosome in array_of_chromosomes]
+    return scores
+
+
+def selection(population, array_of_new_chromosomes, array_of_prev_chromosomes, selection_mode):
     # 70% of new population is from new chormosomes (children of previous layer)
     # 30% of new population is from chromosomes in the previous layer
     next_generation = []
 
     # sort array_of_prev_chromosomes and take top chromosomes
     sorted_array_of_prev_chromosomes = sort_by_score(array_of_prev_chromosomes)
-    for chromosome in sorted_array_of_prev_chromosomes[:math.ceil(population * 0.3)]:
-        next_generation.append(chromosome)
+    next_generation += sorted_array_of_prev_chromosomes[:math.ceil(population * 0.3)] 
 
-    sorted_array_of_new_chromosomes = sort_by_score(array_of_new_chromosomes)
-    for chromosome in sorted_array_of_new_chromosomes[:math.ceil(population * 0.7)]:
-        next_generation.append(chromosome)
+    if selection_mode == 'random':
+        score_weights = return_scores(array_of_new_chromosomes)
+        next_generation += random.choices(list(array_of_new_chromosomes), weights=score_weights, k=math.ceil(population * 0.7))
+
+    elif selection_mode == 'best':
+        sorted_array_of_new_chromosomes = sort_by_score(array_of_new_chromosomes)
+        next_generation += sorted_array_of_new_chromosomes[:math.ceil(population * 0.7)]
 
     return next_generation
+
+
+def cross_over(chromosome1, chromosome2, crossover_points):
+
+
+    # return offspring1, offspring2
+    pass
