@@ -56,14 +56,23 @@ def crossover(chromosome1, chromosome2, crossover_point, crossover_mode):
     offspring1, offspring2 = [], []
     chromosome_length = len(chromosome1.string)
 
-    if crossover_mode == 'random':
+    if crossover_mode == 'random 1':
         crossing_point = random.randint(0, chromosome_length - 1)
         offspring1 = chromosome1.string[:crossing_point] + chromosome2.string[crossing_point:]
         offspring2 = chromosome2.string[:crossing_point] + chromosome1.string[crossing_point:]
 
-    elif crossover_mode == 'specified':
+    elif crossover_mode == 'specified 1':
         offspring1 = chromosome1.string[:crossover_point] + chromosome2.string[crossover_point:]
         offspring2 = chromosome2.string[:crossover_point] + chromosome1.string[crossover_point:]
+
+    elif crossover_mode == 'random 2':
+        crossing_points = random.sample(range(0,chromosome_length), 2)
+        offspring1 = chromosome1.string[:crossing_points[0]] + chromosome2.string[crossing_points[0]:crossing_points[1]] + chromosome1.string[crossing_points[1]:]
+        offspring2 = chromosome2.string[:crossing_points[0]] + chromosome1.string[crossing_points[1]:crossing_points[1]] + chromosome2.string[crossing_points[1]:]
+
+    elif crossover_mode == 'specified 2':
+        offspring1 = chromosome1.string[:crossover_point[0]] + chromosome2.string[crossover_point[0]:crossover_point[1]] + chromosome1.string[crossover_point[1]:]
+        offspring2 = chromosome2.string[:crossover_point[0]] + chromosome1.string[crossover_point[1]:crossover_point[1]] + chromosome2.string[crossover_point[1]:]
 
     return offspring1, offspring2
 
