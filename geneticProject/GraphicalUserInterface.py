@@ -7,7 +7,7 @@ root = tk.Tk()
 
 
 def create_game_plate_arr(game_plate_str):
-    end_string = "_F______"
+    end_string = "F_______"
     game_plate_str += end_string
     first_row, second_row = "", ""
     for char in game_plate_str:

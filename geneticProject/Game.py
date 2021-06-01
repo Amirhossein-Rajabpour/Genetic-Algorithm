@@ -35,19 +35,28 @@ class Game:
             current_step = game_plate[i]
             if current_step == '_':
                 steps += 1
-            elif current_step == 'G' and actions[i - 1] == '1':
-                steps += 1
-            elif current_step == "G" and i - 2 >= 0 and actions[i - 2] == "1":  # score section project
-                steps += 1
-                scores += 2
+            elif current_step == 'G':
+                if actions[i - 1] == '1':
+                    steps += 1
+                elif i - 2 >= 0 and actions[i - 2] == "1":       # score section project
+                    steps += 1
+                    scores += 2
+                else: failure_points.append(i)
+
             elif current_step == "M":  # score section project
                 if actions[i - 1] != "1": scores += 2
                 steps += 1
             # elif i == length_game_plate - 1 and current_step == "1":  # score section project
             #     steps += 1
             #     scores += 1
-            elif current_step == 'L' and actions[i - 1] == '2' and i - 2 >= 0 and actions[i - 2] != "1":
-                steps += 1
+            elif current_step == 'L':
+                if i - 2 >= 0:
+                    if actions[i - 1] == "2" and actions[i - 2] != "1":
+                        steps += 1
+                    else: failure_points.append(i)
+                elif actions[i - 1] == '2':
+                    steps += 1
+                else: failure_points.append(i)
             else:
                 failure_points.append(i)
 

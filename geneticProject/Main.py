@@ -77,6 +77,7 @@ if __name__ == "__main__":
         print("String of goal chromosome: {}".format(result_path_str))
         print("Generation of goal chromosome: {}".format(result_genetic_algorithm.best_answer.generation))
         print("Score of goal chromosome: {}".format(result_genetic_algorithm.best_answer.score))
+        print("failure points : {}".format(result_genetic_algorithm.best_answer.failure_points))
 
         # plot results
         plot_results(result_genetic_algorithm)
