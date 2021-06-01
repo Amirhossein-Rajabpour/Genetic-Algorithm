@@ -68,19 +68,19 @@ def crossover(chromosome1, chromosome2, crossover_point, crossover_mode):
     return offspring1, offspring2
 
 
-def mutation(chromosome, mutation_probability, game):
+def mutation(chromosome, mutation_probability, game, score_mode):
     chromosome_failure_points = chromosome.failure_points
 
     for f_point_index in chromosome_failure_points:
         if random.random() < mutation_probability:
             # it mutate a failure character.
-            new_value = str((int(chromosome.string[f_point_index]) + 1) % 3)
+            new_value = '0'
             left_part = chromosome.string[:f_point_index]
             right_part = chromosome.string[f_point_index + 1:]
 
             chromosome.string = left_part + new_value + right_part
 
-            new_score, new_failurepoints = game.get_score(chromosome.string, "")
+            new_score, new_failurepoints = game.get_score(chromosome.string, score_mode)
             chromosome.update_score_failurepoints(new_score, new_failurepoints)
 
 
@@ -153,7 +153,7 @@ class Genetic:
             # mutation step
             self.generations[current_generation] = new_generation
             for chromosome in self.generations[current_generation]:
-                mutation(chromosome, self.mutation_prob, game)
+                mutation(chromosome, self.mutation_prob, game, self.score_mode)
 
             self.generation_average_scores[current_generation] = calculate_average_score(
                 self.generations[current_generation])
