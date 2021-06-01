@@ -10,6 +10,13 @@ def calculate_average_score(array_of_chromosomes):
         sum_scores += chromosome.score
     return sum_scores/len(array_of_chromosomes)
     
+def update_score_and_failurepoints(array_of_chromosomes, game_plate):
+    for chromosome in array_of_chromosomes:
+        game = Game(game_plate)
+        new_score, new_failure_points = game.get_score(chromosome.string, score_mode="")
+        chromosome.score, chromosome.failure_points = new_score, new_failure_points
+    return array_of_chromosomes
+
 
 class Genetic:
     # population is a dictionary of generation and array of chromosome objects
@@ -42,14 +49,14 @@ class Genetic:
                 score2, failure_points2 = game2.get_score(child2, score_mode="")
                 new_generation.append(Chromosome(child2, score2, current_generation, failure_points2))
 
-            self.population[current_generation] = new_generation
-
 
             # mutation step
             for chromosome in self.population[current_generation]:
                 mutation(chromosome, 0.1)
 
-            # TO DO: scores should be updated after mutation and crossover steps
+            # scores should be updated after mutation and crossover steps
+            self.population[current_generation] = update_score_and_failurepoints(new_generation, self.game_plate)
+
             self.generation_average_scores[current_generation] = calculate_average_score(self.population[current_generation])
             
             # selection step
