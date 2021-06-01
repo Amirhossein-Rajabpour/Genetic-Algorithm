@@ -31,7 +31,7 @@ class Game:
         failure_points = []
         steps = 0
         scores = 0
-        for i in range(1, length_game_plate):
+        for i in range(length_game_plate):
             current_step = game_plate[i]
             if current_step == '_':
                 steps += 1

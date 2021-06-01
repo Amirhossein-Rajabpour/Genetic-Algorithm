@@ -53,27 +53,40 @@ def selection(array_of_prev_chromosomes, selection_mode):
 
 def crossover(chromosome1, chromosome2, crossover_point, crossover_mode):
     # caution: chromosomes are objects here not their strings!
-    offspring1, offspring2 = [], []
+    offspring1, offspring2 = "", ""
     chromosome_length = len(chromosome1.string)
 
     if crossover_mode == 'random 1':
-        crossing_point = random.randint(0, chromosome_length - 1)
+        crossing_point = random.randint(2, chromosome_length - 2)
         offspring1 = chromosome1.string[:crossing_point] + chromosome2.string[crossing_point:]
         offspring2 = chromosome2.string[:crossing_point] + chromosome1.string[crossing_point:]
+        print(offspring1)
+        print(offspring2)
+        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 
     elif crossover_mode == 'specified 1':
         offspring1 = chromosome1.string[:crossover_point] + chromosome2.string[crossover_point:]
         offspring2 = chromosome2.string[:crossover_point] + chromosome1.string[crossover_point:]
 
     elif crossover_mode == 'random 2':
-        crossing_points = random.sample(range(1,chromosome_length-1), 2)
+        crossing_points = random.sample(range(2,chromosome_length-2), 2)
         crossing_points.sort()
-        offspring1 = chromosome1.string[:crossing_points[0]] + chromosome2.string[crossing_points[0]:crossing_points[1]] + chromosome1.string[crossing_points[1]:]
-        offspring2 = chromosome2.string[:crossing_points[0]] + chromosome1.string[crossing_points[1]:crossing_points[1]] + chromosome2.string[crossing_points[1]:]
+        print("ch1 {}".format(chromosome1.string))
+        print("ch2 {}".format(chromosome2.string))
+        print("****************** {}".format(crossing_points))
+        offspring1 = chromosome1.string[0:crossing_points[0]] + chromosome2.string[crossing_points[0]:crossing_points[1]] + chromosome1.string[crossing_points[1]:]
+        print("$$$$$$$$$$$$")
+        print(str(chromosome1.string[:crossing_points[0]]) + str(chromosome2.string[crossing_points[0]:crossing_points[1]]) + str(chromosome1.string[crossing_points[1]:]))
+        print("&&&&&&&&&&&&&&&")
+        offspring2 = str(chromosome2.string[0:crossing_points[0]]) + str(chromosome1.string[crossing_points[0]:crossing_points[1]]) + str(chromosome2.string[crossing_points[1]:])
+        print("****************")
+        print(offspring1)
+        print(offspring2)
+        print("****************")
 
     elif crossover_mode == 'specified 2':
         offspring1 = chromosome1.string[:crossover_point[0]] + chromosome2.string[crossover_point[0]:crossover_point[1]] + chromosome1.string[crossover_point[1]:]
-        offspring2 = chromosome2.string[:crossover_point[0]] + chromosome1.string[crossover_point[1]:crossover_point[1]] + chromosome2.string[crossover_point[1]:]
+        offspring2 = chromosome2.string[:crossover_point[0]] + chromosome1.string[crossover_point[0]:crossover_point[1]] + chromosome2.string[crossover_point[1]:]
 
     return offspring1, offspring2
 
@@ -142,7 +155,7 @@ class Genetic:
             while True:
 
                 parent1, parent2 = choose_two_parents(selected_parents)
-                child1, child2 = crossover(parent1, parent2, self.crossover_point, self.crossover_mode)
+                child1, child2 = crossover(copy.deepcopy(parent1), copy.deepcopy(parent2), self.crossover_point, self.crossover_mode)
 
                 if child1 not in new_generation_strings:
                     score1, failure_points1 = game.get_score(child1, self.score_mode)
@@ -152,7 +165,7 @@ class Genetic:
                     break
 
                 if child2 not in new_generation_strings:
-                    print(child2)
+                    print("child ", child2)
                     score2, failure_points2 = game.get_score(child2, self.score_mode)
                     new_generation.append(Chromosome(child2, score2, current_generation, failure_points2))
                     new_generation_strings.append(child2)
