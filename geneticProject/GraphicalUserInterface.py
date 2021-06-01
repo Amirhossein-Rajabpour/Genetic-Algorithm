@@ -129,9 +129,8 @@ class GraphicalUserInterface():
             root.columnconfigure(0, weight=num_cols)
             root.columnconfigure(1, weight=num_rows)
             super_mario_index = get_super_mario_index(self.path[self.step])
-            print(super_mario_index)
             super_mario_index_i, super_mario_index_j = super_mario_index[0], super_mario_index[1] - 1
-            print(self.path[self.step])
+
             for r in range(num_rows):
                 for c in range(num_cols):
                     if self.path[self.step][r][c + super_mario_index_j] == "_":

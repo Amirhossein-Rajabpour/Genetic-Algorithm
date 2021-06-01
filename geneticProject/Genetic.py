@@ -3,13 +3,13 @@ import copy
 from AdditionalFunctions import *
 from Chromosome import *
 
-MAX_GENERATION = 500
+MAX_GENERATION = 10000
 
 
 def is_end(number_generation):
     if number_generation > MAX_GENERATION:
         return True
-
+    return False
 
 def calculate_average_score(array_of_chromosomes):
     sum_scores = 0
@@ -73,14 +73,12 @@ def mutation(chromosome, mutation_probability, game):
 
     for f_point_index in chromosome_failure_points:
         if random.random() < mutation_probability:
-            print(chromosome.string)
             # it mutate a failure character.
             new_value = str((int(chromosome.string[f_point_index]) + 1) % 3)
             left_part = chromosome.string[:f_point_index]
             right_part = chromosome.string[f_point_index + 1:]
 
             chromosome.string = left_part + new_value + right_part
-            print(chromosome.string)
 
             new_score, new_failurepoints = game.get_score(chromosome.string, "")
             chromosome.update_score_failurepoints(new_score, new_failurepoints)
@@ -120,7 +118,8 @@ class Genetic:
 
         current_generation = 2
         game = Game(self.game_plate)
-        while not is_end(len(self.generations)):
+
+        while len(self.generations) < MAX_GENERATION:
 
             # 70% of new population are from new chromosome (children of selected parents)
             # 30% of new population are from selected parents (after selection step)
@@ -164,5 +163,6 @@ class Genetic:
             find_chromosome, goal_chromosome = check_goal_chromosome(self.generations[current_generation])
             if find_chromosome:
                 self.best_answer = goal_chromosome
+                break
 
             current_generation += 1
