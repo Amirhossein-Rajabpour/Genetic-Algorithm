@@ -1,4 +1,4 @@
-import copy
+import copy, random
 
 from AdditionalFunctions import *
 from Chromosome import *

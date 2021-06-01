@@ -34,7 +34,7 @@ def get_input_from_user():
         exit()
 
     mutation_prob = input("Enter mutation probability: \n")
-    return test_case_file_name, num_of_population, score_mode, selection_mode, crossover_mode, crossover_point, mutation_prob
+    return test_case_file_name, num_of_population, score_mode, selection_mode, crossover_mode, crossover_point, float(mutation_prob)
     # return "level8.txt", "100", "1", "random", "random", 0, 0.1
 
 
