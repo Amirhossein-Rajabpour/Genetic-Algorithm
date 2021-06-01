@@ -14,23 +14,21 @@ class Chromosome:
         self.failure_points = new_failurepoints
 
 
-def selection(len_population, array_of_new_chromosomes, array_of_prev_chromosomes, selection_mode):
-    # 70% of new population is from new chormosomes (children of previous layer)
-    # 30% of new population is from chromosomes in the previous layer
-    next_generation = []
-    next_generation += array_of_new_chromosomes
+def selection(array_of_prev_chromosomes, selection_mode):
+    selected_parents = []
+    len_population = len(array_of_prev_chromosomes)
 
     # randomly (with their scores as their weights) select from previous generation
     if selection_mode == 'random':
         score_weights = return_scores(array_of_prev_chromosomes)
-        next_generation += random.choices(list(array_of_prev_chromosomes), weights=score_weights,k=math.ceil(len_population * 0.3))
+        selected_parents += random.choices(list(array_of_prev_chromosomes), weights=score_weights,k=math.ceil(len_population * 0.5))
     
     # sort array_of_prev_chromosomes and take top chromosomes
     elif selection_mode == 'best':
         sorted_array_of_prev_chromosomes = sort_by_score(array_of_prev_chromosomes)
-        next_generation += sorted_array_of_prev_chromosomes[:math.ceil(len_population * 0.3)]
+        selected_parents += sorted_array_of_prev_chromosomes[:math.ceil(len_population * 0.5)]
 
-    return next_generation
+    return selected_parents
 
 
 def crossover(chromosome1, chromosome2, crossover_point, crossover_mode):
