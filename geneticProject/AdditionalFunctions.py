@@ -64,7 +64,7 @@ def generate_initial_population(number_of_population, game_plate_string, score_m
 def sort_by_score(array_of_chromosomes):
     # sort by their scores
     # return sorted array
-    return array_of_chromosomes.sort(key=lambda x: x.score, reverse=False)
+    return array_of_chromosomes.sort(key=lambda x: x.score, reverse=True)
 
 
 def return_scores(array_of_chromosomes):
