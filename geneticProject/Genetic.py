@@ -1,6 +1,7 @@
+import copy
+
 from AdditionalFunctions import *
 from Chromosome import *
-
 
 MAX_GENERATION = 500
 
@@ -85,10 +86,21 @@ def mutation(chromosome, mutation_probability, game):
             chromosome.update_score_failurepoints(new_score, new_failurepoints)
 
 
+def check_goal_chromosome(new_generation):
+    new_generation_copy = copy.deepcopy(new_generation)
+    new_generation_copy.sort(key=lambda x: x.score, reverse=True)
+    for chromosome in new_generation_copy:
+        if len(chromosome.failure_points) == 0:
+            return True, chromosome
+
+    return False, False
+
+
 class Genetic:
     # population is a dictionary of generation and array of chromosome objects
     # => {1: [chromosome1, chromosome2, ...], 2:[chromosomeK, ...]}
-    def __init__(self, generations, game_plate, selection_mode, crossover_mode, crossover_point, mutation_prob, score_mode):
+    def __init__(self, generations, game_plate, selection_mode, crossover_mode, crossover_point, mutation_prob,
+                 score_mode):
         self.generations = generations
         self.game_plate = game_plate
         self.selection_mode = selection_mode
@@ -140,6 +152,7 @@ class Genetic:
             new_generation += selected_parents
 
             # mutation step
+            self.generations[current_generation] = new_generation
             for chromosome in self.generations[current_generation]:
                 mutation(chromosome, self.mutation_prob, game)
 
@@ -147,5 +160,9 @@ class Genetic:
                 self.generations[current_generation])
             self.generation_max_score[current_generation] = find_max_score(self.generations[current_generation])
             self.generation_min_score[current_generation] = find_min_score(self.generations[current_generation])
+
+            find_chromosome, goal_chromosome = check_goal_chromosome(self.generations[current_generation])
+            if find_chromosome:
+                self.best_answer = goal_chromosome
 
             current_generation += 1

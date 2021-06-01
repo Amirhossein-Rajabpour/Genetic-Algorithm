@@ -164,14 +164,14 @@ class GraphicalUserInterface():
                         flag_label.grid(column=c, row=r)
 
             self.step += 1
-            root.after(800, self.Visualize)
+            root.after(1000, self.Visualize)
         root.mainloop()
 
+#
+# game_plate_arr = create_game_plate_arr("__GM__LL")
+# print(game_plate_arr)
+# movement = get_sequence_movement("01010220", game_plate_arr)
+# print(movement)
+# g = GraphicalUserInterface(movement)
+# g.Visualize()
 
-game_plate_arr = create_game_plate_arr("__GM__LL")
-print(game_plate_arr)
-movement = get_sequence_movement("01010220", game_plate_arr)
-print(movement)
-g = GraphicalUserInterface(movement)
-g.Visualize()
-# g = GraphicalUserInterface("001100", "_G_ML_")

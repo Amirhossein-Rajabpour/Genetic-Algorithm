@@ -53,12 +53,12 @@ class Game:
 
         if actions[-1] == "1": scores += 1 # score section project (when final action is jump and move right)
 
-        print(scores)
-        print(failure_points)
+        # print(scores)
+        # print(failure_points)
         failure_points_copy = copy.deepcopy(failure_points)
         maximum_substring_length = self.calculate_maximum_substring_length(failure_points_copy)
 
-        print(maximum_substring_length)
+        # print(maximum_substring_length)
         if get_score_mode == "1":
             if len(failure_points) == 0: scores += 5    # if failure_points is empty => chromosome is win.
 
