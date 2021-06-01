@@ -7,6 +7,8 @@ root = tk.Tk()
 
 
 def create_game_plate_arr(game_plate_str):
+    end_string = "_F______"
+    game_plate_str += end_string
     first_row, second_row = "", ""
     for char in game_plate_str:
         if char == "_":
@@ -21,13 +23,14 @@ def create_game_plate_arr(game_plate_str):
         elif char == "M":
             first_row += "_"
             second_row += "M"
+        elif char == "F":
+            first_row += "_"
+            second_row += "F"
+
     first_row_split = [char for char in first_row]
     second_row_split = [char for char in second_row]
     game_plate_arr = [first_row_split, second_row_split]
     return game_plate_arr
-
-
-# test = create_game_plate_arr("__G__")
 
 
 def get_first_state(game_plate_arr):
@@ -49,7 +52,6 @@ def get_super_mario_index(arr):
             return i, index_j
 
 
-
 def get_sequence_movement(win_path, game_plate_arr):
     sequence_movement_arr = []
     super_mario_index = 0
@@ -59,8 +61,9 @@ def get_sequence_movement(win_path, game_plate_arr):
 
     i = 0
     while i < len(win_path):
+        current_super_mario_index = get_super_mario_index(sequence_movement_arr[-1])
+
         if win_path[i] == "0":
-            current_super_mario_index = get_super_mario_index(sequence_movement_arr[-1])
             next_state = copy.deepcopy(sequence_movement_arr[-1])
             next_state[current_super_mario_index[0]][current_super_mario_index[1]] = "_"
             next_state[1][current_super_mario_index[1] + 1] = "SM"
@@ -68,7 +71,6 @@ def get_sequence_movement(win_path, game_plate_arr):
             i += 1
 
         elif win_path[i] == "1":
-            current_super_mario_index = get_super_mario_index(sequence_movement_arr[-1])
             next_state = copy.deepcopy(sequence_movement_arr[-1])
             next_state[current_super_mario_index[0]][current_super_mario_index[1]] = "_"
             next_state[0][current_super_mario_index[1] + 1] = "SM"
@@ -80,7 +82,6 @@ def get_sequence_movement(win_path, game_plate_arr):
             i += 2
 
         elif win_path[i] == "2":
-            current_super_mario_index = get_super_mario_index(sequence_movement_arr[-1])
             next_state = copy.deepcopy(sequence_movement_arr[-1])
             next_state[current_super_mario_index[0]][current_super_mario_index[1]] = "_"
             next_state[1][current_super_mario_index[1] + 1] = "SML"
@@ -93,19 +94,15 @@ def get_sequence_movement(win_path, game_plate_arr):
 # print(get_sequence_movement("0000", test))
 
 
-
 class GraphicalUserInterface():
 
     def __init__(self, path):
         self.path = path
         self.step = 0
-        # self.game_plate = game_plate
         self.Visualize()
 
-
-
     def Visualize(self, e=1):
-        num_rows, num_cols = 2, 6
+        num_rows, num_cols = 2, 8
 
         WIDTH = (num_cols * 100) + 10
         HEIGHT = (num_rows * 100) + 10
@@ -116,15 +113,13 @@ class GraphicalUserInterface():
         root.columnconfigure(0, weight=num_cols)
         root.columnconfigure(1, weight=num_rows)
 
-        super_mario_image = ImageTk.PhotoImage(
-            Image.open('./picture_for_gui/superMario1.png').resize((100, 100), Image.ANTIALIAS))
-        half_super_mario_image = ImageTk.PhotoImage(
-            Image.open('./picture_for_gui/superMario2.png').resize((100, 100), Image.ANTIALIAS))
-        mushroom_image = ImageTk.PhotoImage(
-            Image.open('./picture_for_gui/mushrooms.jpg').resize((100, 100), Image.ANTIALIAS))
+        super_mario_image = ImageTk.PhotoImage(Image.open('./picture_for_gui/superMario1.png').resize((100, 100), Image.ANTIALIAS))
+        half_super_mario_image = ImageTk.PhotoImage(Image.open('./picture_for_gui/superMario2.png').resize((100, 100), Image.ANTIALIAS))
+        mushroom_image = ImageTk.PhotoImage(Image.open('./picture_for_gui/mushrooms.jpg').resize((100, 100), Image.ANTIALIAS))
         ghost_image = ImageTk.PhotoImage(Image.open('./picture_for_gui/ghost.jpg').resize((100, 100), Image.ANTIALIAS))
         gumpa_image = ImageTk.PhotoImage(Image.open('./picture_for_gui/gumpa.jpg').resize((100, 100), Image.ANTIALIAS))
         cell_image = ImageTk.PhotoImage(Image.open('./picture_for_gui/cell.png').resize((100, 100), Image.ANTIALIAS))
+        flag_image = ImageTk.PhotoImage(Image.open('./picture_for_gui/flag.jpg').resize((100, 100), Image.ANTIALIAS))
 
         if self.step < len(self.path):
             root.geometry(f"{WIDTH}x{HEIGHT}")
@@ -164,47 +159,18 @@ class GraphicalUserInterface():
                         half_super_mario_label = ttk.Label(root, image=half_super_mario_image)
                         half_super_mario_label.grid(column=c, row=r)
 
+                    elif self.path[self.step][r][c + super_mario_index_j] == "F":
+                        flag_label = ttk.Label(root, image=flag_image)
+                        flag_label.grid(column=c, row=r)
+
             self.step += 1
             root.after(800, self.Visualize)
-            root.mainloop()
-        # super_mario_label = ttk.Label(root, image=super_mario_image)
-        # super_mario_label.grid(column=0, row=1)
+        root.mainloop()
 
-        # for i in range(len(self.game_plate)):
-        #     print(self.game_plate[i])
-        #
-        #
-        #
-        #
-        #     if self.game_plate[i] == "_":
-        #         cell_label1 = ttk.Label(root, image=cell_image)
-        #         cell_label2 = ttk.Label(root, image=cell_image)
-        #         cell_label1.grid(column=i, row=0)
-        #         cell_label2.grid(column=i, row=1)
-        #
-        #     if self.game_plate[i] == "M":
-        #         cell_label = ttk.Label(root, image=cell_image)
-        #         mushroom_label = ttk.Label(root, image=mushroom_image)
-        #         cell_label.grid(column=i, row=0)
-        #         mushroom_label.grid(column=i, row=1)
-        #
-        #     if self.game_plate[i] == "G":
-        #         gumpa_label = ttk.Label(root, image=gumpa_image)
-        #         cell_label = ttk.Label(root, image=cell_image)
-        #         cell_label.grid(column=i, row=0)
-        #         gumpa_label.grid(column=i, row=1)
-        #
-        #     if self.game_plate[i] == "L":
-        #         ghost_label = ttk.Label(root, image=ghost_image)
-        #         cell_label = ttk.Label(root, image=cell_image)
-        #         ghost_label.grid(column=i, row=0)
-        #         cell_label.grid(column=i, row=1)
 
-        # root.mainloop()
-
-game_plate_arr = create_game_plate_arr("__G___L_" + "______")
+game_plate_arr = create_game_plate_arr("__GM__LL")
 print(game_plate_arr)
-movement = get_sequence_movement("01010200", game_plate_arr)
+movement = get_sequence_movement("01010220", game_plate_arr)
 print(movement)
 g = GraphicalUserInterface(movement)
 g.Visualize()
