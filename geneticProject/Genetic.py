@@ -151,6 +151,7 @@ class Genetic:
                     break
 
                 if child2 not in new_generation_strings:
+                    print(child2)
                     score2, failure_points2 = game.get_score(child2, self.score_mode)
                     new_generation.append(Chromosome(child2, score2, current_generation, failure_points2))
                     new_generation_strings.append(child2)
