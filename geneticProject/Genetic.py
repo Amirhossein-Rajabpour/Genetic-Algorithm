@@ -60,9 +60,6 @@ def crossover(chromosome1, chromosome2, crossover_point, crossover_mode):
         crossing_point = random.randint(2, chromosome_length - 2)
         offspring1 = chromosome1.string[:crossing_point] + chromosome2.string[crossing_point:]
         offspring2 = chromosome2.string[:crossing_point] + chromosome1.string[crossing_point:]
-        print(offspring1)
-        print(offspring2)
-        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 
     elif crossover_mode == 'specified 1':
         offspring1 = chromosome1.string[:crossover_point] + chromosome2.string[crossover_point:]
@@ -71,18 +68,9 @@ def crossover(chromosome1, chromosome2, crossover_point, crossover_mode):
     elif crossover_mode == 'random 2':
         crossing_points = random.sample(range(2,chromosome_length-2), 2)
         crossing_points.sort()
-        print("ch1 {}".format(chromosome1.string))
-        print("ch2 {}".format(chromosome2.string))
-        print("****************** {}".format(crossing_points))
         offspring1 = chromosome1.string[0:crossing_points[0]] + chromosome2.string[crossing_points[0]:crossing_points[1]] + chromosome1.string[crossing_points[1]:]
-        print("$$$$$$$$$$$$")
-        print(str(chromosome1.string[:crossing_points[0]]) + str(chromosome2.string[crossing_points[0]:crossing_points[1]]) + str(chromosome1.string[crossing_points[1]:]))
-        print("&&&&&&&&&&&&&&&")
-        offspring2 = str(chromosome2.string[0:crossing_points[0]]) + str(chromosome1.string[crossing_points[0]:crossing_points[1]]) + str(chromosome2.string[crossing_points[1]:])
-        print("****************")
-        print(offspring1)
-        print(offspring2)
-        print("****************")
+        offspring2 = chromosome2.string[0:crossing_points[0]] + chromosome1.string[crossing_points[0]:crossing_points[1]] + chromosome2.string[crossing_points[1]:]
+
 
     elif crossover_mode == 'specified 2':
         offspring1 = chromosome1.string[:crossover_point[0]] + chromosome2.string[crossover_point[0]:crossover_point[1]] + chromosome1.string[crossover_point[1]:]

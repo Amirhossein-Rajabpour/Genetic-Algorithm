@@ -100,7 +100,14 @@
       <option name="project" value="LOCAL" />
       <updated>1622561880307</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="bug in crossover fixed">
+      <created>1622566701036</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1622566701036</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -108,10 +115,11 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="plotting added" />
-    <option name="LAST_COMMIT_MESSAGE" value="plotting added" />
+    <MESSAGE value="bug in crossover fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="bug in crossover fixed" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/project_2$Main.coverage" NAME="Main Coverage Results" MODIFIED="1622566434140" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/geneticProject" />
+    <SUITE FILE_PATH="coverage/project_2$Main.coverage" NAME="Main Coverage Results" MODIFIED="1622566592428" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/geneticProject" />
     <SUITE FILE_PATH="coverage/project_2$Unnamed.coverage" NAME="Unnamed Coverage Results" MODIFIED="1622558273965" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>
