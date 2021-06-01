@@ -38,6 +38,9 @@ def main():
 
     # TO DO: plot average scores per generation
     generation_average_scores = genetic.generation_average_scores
+    generation_max_scores = genetic.generation_max_score
+    generation_min_scores = genetic.generation_min_score
+
 
 
 
