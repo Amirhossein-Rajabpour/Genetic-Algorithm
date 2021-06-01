@@ -27,8 +27,7 @@ def create_game_plate_arr(game_plate_str):
     return game_plate_arr
 
 
-test = create_game_plate_arr("__GMG__L")
-print(test)
+test = create_game_plate_arr("__G__")
 
 
 def get_first_state(game_plate_arr):
@@ -37,18 +36,58 @@ def get_first_state(game_plate_arr):
     return game_plate_arr_copy
 
 
-print(get_first_state(test))
+def get_super_mario_index(arr, string):
+    row_number = len(arr)
+    column_number = len(arr[0])
+    for i in range(row_number):
+        if string in arr[i]:
+            index_j = arr[i].index(string)
+            return i, index_j
 
 
 def get_sequence_movement(win_path, game_plate_arr):
     sequence_movement_arr = []
     super_mario_index = 0
 
-    first_state = get_first_state(win_path, game_plate_arr)
+    first_state = get_first_state(game_plate_arr)
     sequence_movement_arr.append(first_state)
 
-    for i in len(win_path):
+    i = 0
+    while i < len(win_path):
+        if win_path[i] == "0":
+            current_super_mario_index = get_super_mario_index(sequence_movement_arr[-1], "SM")
+            print(current_super_mario_index)
+            next_state = copy.deepcopy(sequence_movement_arr[-1])
+            next_state[current_super_mario_index[0]][current_super_mario_index[1]] = "_"
+            next_state[1][current_super_mario_index[1] + 1] = "SM"
+            sequence_movement_arr.append(next_state)
+            i += 1
 
+        elif win_path[i] == "1":
+            current_super_mario_index = get_super_mario_index(sequence_movement_arr[-1], "SM")
+            next_state = copy.deepcopy(sequence_movement_arr[-1])
+            next_state[current_super_mario_index[0]][current_super_mario_index[1]] = "_"
+            next_state[0][current_super_mario_index[1] + 1] = "SM"
+            sequence_movement_arr.append(next_state)
+            two_next_state = copy.deepcopy(sequence_movement_arr[-1])
+            two_next_state[0][current_super_mario_index[1] + 1] = "_"
+            two_next_state[1][current_super_mario_index[1] + 2] = "SM"
+            sequence_movement_arr.append(two_next_state)
+            i += 2
+
+        elif win_path[i] == "2":
+            current_super_mario_index = get_super_mario_index(sequence_movement_arr[-1], "SM")
+            next_state = copy.deepcopy(sequence_movement_arr[-1])
+            next_state[current_super_mario_index[0]][current_super_mario_index[1]] = "_"
+            next_state[1][current_super_mario_index[1] + 1] = "SM"
+            sequence_movement_arr.append(next_state)
+            i += 1
+
+    return sequence_movement_arr
+
+
+print(get_sequence_movement("0000", test))
+exit()
 
 
 class GraphicalUserInterface():
