@@ -46,7 +46,7 @@ class Game:
             # elif i == length_game_plate - 1 and current_step == "1":  # score section project
             #     steps += 1
             #     scores += 1
-            elif current_step == 'L' and actions[i - 1] == '2':
+            elif current_step == 'L' and actions[i - 1] == '2' and i - 2 >= 0 and actions[i - 2] != "1":
                 steps += 1
             else:
                 failure_points.append(i)
