@@ -84,7 +84,7 @@ def mutation(chromosome, mutation_probability, game, score_mode):
     chromosome_failure_points = chromosome.failure_points
     if len(chromosome_failure_points) > 0:
         mutation_index = random.sample(chromosome_failure_points, 1)[0]
-        print(mutation_index)
+        # print(mutation_index)
         new_value_mutation_index = "0"
         left_part = chromosome.string[:mutation_index]
         right_part = chromosome.string[mutation_index + 1:]
@@ -181,9 +181,9 @@ class Genetic:
             self.generations[current_generation] = new_generation
             for chromosome in self.generations[current_generation]:
                 if random.random() < self.mutation_prob:
-                    print(chromosome.string)
+                    # print(chromosome.string)
                     mutation(chromosome, self.mutation_prob, game, self.score_mode)
-                    print(chromosome.string)
+                    # print(chromosome.string)
 
             self.generation_average_scores[current_generation] = calculate_average_score(self.generations[current_generation])
             self.generation_max_score[current_generation] = find_max_score(self.generations[current_generation])
@@ -192,6 +192,7 @@ class Genetic:
             find_chromosome, goal_chromosome = check_goal_chromosome(self.generations[current_generation])
             if find_chromosome:
                 self.best_answer = goal_chromosome
+                print(len(self.generations))
                 break
 
             current_generation += 1

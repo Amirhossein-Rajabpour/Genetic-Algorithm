@@ -74,8 +74,8 @@ class Game:
         return maximum_substring_length + scores, failure_points
 
 
-# g = Game("____G_____")
-
-
+# g = Game("____G_ML__G_")
 #
-# print(g.get_score("2101020000", "1"))
+#
+# #
+# print(g.get_score("001000101000", "1"))
