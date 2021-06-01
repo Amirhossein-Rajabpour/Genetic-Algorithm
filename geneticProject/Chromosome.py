@@ -9,6 +9,10 @@ class Chromosome:
         self.generation = generation
         self.failure_points = failure_points
 
+    def update_score_failurepoints(self, new_score, new_failurepoints):
+        self.score = new_score
+        self.failure_points = new_failurepoints
+
 
 def selection(len_population, array_of_new_chromosomes, array_of_prev_chromosomes, selection_mode):
     # 70% of new population is from new chormosomes (children of previous layer)
@@ -48,7 +52,7 @@ def crossover(chromosome1, chromosome2, crossover_point, crossover_mode):
     return offspring1, offspring2
 
 
-def mutation(chromosome, mutatiom_probability):
+def mutation(chromosome, mutatiom_probability, game):
     chromosome_failure_points = chromosome.failure_points
     for f_point_index in chromosome_failure_points:
         if random.random() < mutatiom_probability:
@@ -58,3 +62,6 @@ def mutation(chromosome, mutatiom_probability):
             right_part = chromosome.string[f_point_index+1:]
 
             chromosome.string = left_part + new_value + right_part
+
+            new_score, new_failurepoints = game.get_score(chromosome.string, "")
+            chromosome.update_score_failurepoints(new_score, new_failurepoints)

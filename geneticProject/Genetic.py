@@ -9,13 +9,6 @@ def calculate_average_score(array_of_chromosomes):
     for chromosome in array_of_chromosomes:
         sum_scores += chromosome.score
     return sum_scores/len(array_of_chromosomes)
-    
-def update_score_and_failurepoints(array_of_chromosomes, game_plate):
-    for chromosome in array_of_chromosomes:
-        game = Game(game_plate)
-        new_score, new_failure_points = game.get_score(chromosome.string, score_mode="")
-        chromosome.score, chromosome.failure_points = new_score, new_failure_points
-    return array_of_chromosomes
 
 
 class Genetic:
@@ -41,21 +34,19 @@ class Genetic:
             while len(new_generation) <= len_population-2:
                 # TO DO: how to decide which chromosomes to choose for offspring?
                 child1, child2 = crossover(, , self.crossover_point, self.crossover_mode)
-                game1 = Game(self.game_plate)
-                score1, failure_points1 = game1.get_score(child1, score_mode="")
+                game = Game(self.game_plate)
+                score1, failure_points1 = game.get_score(child1, score_mode="")
                 new_generation.append(Chromosome(child1, score1, current_generation, failure_points1))
 
-                game2 = Game(self.game_plate)
-                score2, failure_points2 = game2.get_score(child2, score_mode="")
+                score2, failure_points2 = game.get_score(child2, score_mode="")
                 new_generation.append(Chromosome(child2, score2, current_generation, failure_points2))
+
+            self.population[current_generation] = new_generation
 
 
             # mutation step
             for chromosome in self.population[current_generation]:
-                mutation(chromosome, 0.1)
-
-            # scores should be updated after mutation and crossover steps
-            self.population[current_generation] = update_score_and_failurepoints(new_generation, self.game_plate)
+                mutation(chromosome, 0.1, game)
 
             self.generation_average_scores[current_generation] = calculate_average_score(self.population[current_generation])
             
