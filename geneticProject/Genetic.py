@@ -29,7 +29,7 @@ class Genetic:
 
         current_generation = 2
         len_population = len(self.population[1])
-        self.generation_average_scores[1] = calculate_average_score(sort_by_score(self.population[1])[:math.ceil(len_population * 0.5)])
+        self.generation_average_scores[1] = calculate_average_score(self.population[1])
 
         while not is_end():
 
@@ -37,7 +37,7 @@ class Genetic:
             new_generation, new_generation_strings = [], []
             while True:
                 # half of the population which is better than the other half is chosen and 70% of the new generation are children of this half
-                parent1, parent2 = choose_two_parents(self.population[current_generation-1])
+                parent1, parent2 = choose_two_parents(sort_by_score(self.population[current_generation-1])[:math.ceil(len_population * 0.5)])
                 child1, child2 = crossover(parent1, parent2, self.crossover_point, self.crossover_mode)
                 game = Game(self.game_plate)
 
