@@ -20,12 +20,12 @@ def calculate_average_score(array_of_chromosomes):
 
 def find_max_score(array_of_chromosomes):
     array_of_chromosomes.sort(key=lambda x: x.score, reverse=True)
-    return array_of_chromosomes[0]
+    return array_of_chromosomes[0].score
 
 
 def find_min_score(array_of_chromosomes):
     array_of_chromosomes.sort(key=lambda x: x.score, reverse=False)
-    return array_of_chromosomes[0]
+    return array_of_chromosomes[0].score
 
 
 def choose_two_parents(array_of_chromosomes):
@@ -155,8 +155,7 @@ class Genetic:
             for chromosome in self.generations[current_generation]:
                 mutation(chromosome, self.mutation_prob, game, self.score_mode)
 
-            self.generation_average_scores[current_generation] = calculate_average_score(
-                self.generations[current_generation])
+            self.generation_average_scores[current_generation] = calculate_average_score(self.generations[current_generation])
             self.generation_max_score[current_generation] = find_max_score(self.generations[current_generation])
             self.generation_min_score[current_generation] = find_min_score(self.generations[current_generation])
 
