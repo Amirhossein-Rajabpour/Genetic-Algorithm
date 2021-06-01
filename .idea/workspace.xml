@@ -4,6 +4,7 @@
     <list default="true" id="9944b5a8-06ab-4007-83ff-b7fa90c6762c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/geneticProject/Genetic.py" beforeDir="false" afterPath="$PROJECT_DIR$/geneticProject/Genetic.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/geneticProject/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/geneticProject/Main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,7 +108,14 @@
       <option name="project" value="LOCAL" />
       <updated>1622566701036</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="cleaning code and additional prints">
+      <created>1622569000131</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1622569000131</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -116,10 +124,11 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="plotting added" />
     <MESSAGE value="bug in crossover fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="bug in crossover fixed" />
+    <MESSAGE value="cleaning code and additional prints" />
+    <option name="LAST_COMMIT_MESSAGE" value="cleaning code and additional prints" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/project_2$Main.coverage" NAME="Main Coverage Results" MODIFIED="1622566592428" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/geneticProject" />
+    <SUITE FILE_PATH="coverage/project_2$Main.coverage" NAME="Main Coverage Results" MODIFIED="1622572448079" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/geneticProject" />
     <SUITE FILE_PATH="coverage/project_2$Unnamed.coverage" NAME="Unnamed Coverage Results" MODIFIED="1622558273965" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>

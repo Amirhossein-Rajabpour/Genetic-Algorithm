@@ -73,24 +73,17 @@ def get_input_from_user():
 
 
 
-
-
 def start_genetic_algorithm(game_plate, num_of_population, score_mode, selection_mode, crossover_mode, crossover_point, mutation_prob):
-
     initial_population = generate_initial_population(int(num_of_population), game_plate, score_mode)
     generations = {1: initial_population}
     genetic = Genetic(generations, game_plate, selection_mode, crossover_mode, crossover_point, mutation_prob, score_mode)
-
     return genetic
+
 
 def plot_results(genetic):
     generation_average_scores = genetic.generation_average_scores
     generation_max_scores = genetic.generation_max_score
     generation_min_scores = genetic.generation_min_score
-
-    print("avg: ", generation_average_scores)
-    print('max: ', generation_max_scores)
-    print('min: ', generation_min_scores)
 
     plt.plot(*zip(*sorted(generation_average_scores.items())), color='r', label='avg scores')
     plt.plot(*zip(*sorted(generation_max_scores.items())), color='g', label='max scores')
@@ -107,16 +100,14 @@ if __name__ == "__main__":
     game_plate_str = read_level_game(test_case_file_name)
     result_genetic_algorithm = start_genetic_algorithm(game_plate_str, num_of_population, score_mode, selection_mode, crossover_mode, crossover_point, mutation_prob)
 
-    result_path_str = result_genetic_algorithm.best_answer.string
-    if result_path_str != "":
+    if len(result_genetic_algorithm.generation_average_scores) != 10000:
+        result_path_str = result_genetic_algorithm.best_answer.string
         print("String of goal chromosome: {}".format(result_path_str))
         print("Generation of goal chromosome: {}".format(result_genetic_algorithm.best_answer.generation))
         print("Score of goal chromosome: {}".format(result_genetic_algorithm.best_answer.score))
-        print("failure points : {}".format(result_genetic_algorithm.best_answer.failure_points))
 
         # plot results
         plot_results(result_genetic_algorithm)
-
 
         # render GUI
         game_plate_arr = create_game_plate_arr(game_plate_str)
@@ -125,4 +116,4 @@ if __name__ == "__main__":
         game.Visualize()
 
     else:
-        print("not found")
+        print("can't win the game or maximum generation limit reached!")
