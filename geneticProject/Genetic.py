@@ -3,7 +3,7 @@ import copy, random
 from AdditionalFunctions import *
 from Chromosome import *
 
-MAX_GENERATION = 10000
+MAX_GENERATION = 1000
 
 
 def is_end(number_generation):
@@ -80,19 +80,35 @@ def crossover(chromosome1, chromosome2, crossover_point, crossover_mode):
 
 
 def mutation(chromosome, mutation_probability, game, score_mode):
+    # print("chromosome before: ", chromosome.string)
     chromosome_failure_points = chromosome.failure_points
+    if len(chromosome_failure_points) > 0:
+        mutation_index = random.sample(chromosome_failure_points, 1)[0]
+        print(mutation_index)
+        new_value_mutation_index = "0"
+        left_part = chromosome.string[:mutation_index]
+        right_part = chromosome.string[mutation_index + 1:]
 
-    for f_point_index in chromosome_failure_points:
-        if random.random() < mutation_probability:
-            # it mutate a failure character.
-            new_value = '0'
-            left_part = chromosome.string[:f_point_index]
-            right_part = chromosome.string[f_point_index + 1:]
+        chromosome.string = left_part + new_value_mutation_index + right_part
+        new_score, new_failure_points = game.get_score(chromosome.string, score_mode)
+        chromosome.score = new_score
+        chromosome.failure_points = new_failure_points
+        # chromosome.update_score_failurepoints(new_score, new_failure_points)
+        # print("afteee", chromosome.string)
 
-            chromosome.string = left_part + new_value + right_part
 
-            new_score, new_failurepoints = game.get_score(chromosome.string, score_mode)
-            chromosome.update_score_failurepoints(new_score, new_failurepoints)
+    # for f_point_index in chromosome_failure_points:
+    #     if random.random() < mutation_probability:
+    #         # it mutate a failure character.
+    #         new_value = '0'
+    #         left_part = chromosome.string[:f_point_index]
+    #         right_part = chromosome.string[f_point_index + 1:]
+    #
+    #         chromosome.string = left_part + new_value + right_part
+    #
+    #         new_score, new_failurepoints = game.get_score(chromosome.string, score_mode)
+    #         print(new_score)
+    #         chromosome.update_score_failurepoints(new_score, new_failurepoints)
 
 
 def check_goal_chromosome(new_generation):
@@ -164,7 +180,10 @@ class Genetic:
             # mutation step
             self.generations[current_generation] = new_generation
             for chromosome in self.generations[current_generation]:
-                mutation(chromosome, self.mutation_prob, game, self.score_mode)
+                if random.random() < self.mutation_prob:
+                    print(chromosome.string)
+                    mutation(chromosome, self.mutation_prob, game, self.score_mode)
+                    print(chromosome.string)
 
             self.generation_average_scores[current_generation] = calculate_average_score(self.generations[current_generation])
             self.generation_max_score[current_generation] = find_max_score(self.generations[current_generation])

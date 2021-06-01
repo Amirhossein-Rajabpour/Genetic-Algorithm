@@ -9,9 +9,9 @@ class Chromosome:
         self.generation = generation
         self.failure_points = failure_points
 
-    def update_score_failurepoints(self, new_score, new_failurepoints):
-        self.score = new_score
-        self.failure_points = new_failurepoints
+    # def update_score_failurepoints(self, new_score, new_failurepoints):
+    #     self.score = new_score
+    #     self.failure_points = new_failurepoints
 
 
 
