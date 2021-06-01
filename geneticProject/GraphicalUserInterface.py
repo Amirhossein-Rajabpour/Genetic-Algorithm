@@ -117,7 +117,7 @@ class GraphicalUserInterface():
         half_super_mario_image = ImageTk.PhotoImage(Image.open('./picture_for_gui/superMario2.png').resize((100, 100), Image.ANTIALIAS))
         mushroom_image = ImageTk.PhotoImage(Image.open('./picture_for_gui/mushrooms.jpg').resize((100, 100), Image.ANTIALIAS))
         ghost_image = ImageTk.PhotoImage(Image.open('./picture_for_gui/ghost.jpg').resize((100, 100), Image.ANTIALIAS))
-        gumpa_image = ImageTk.PhotoImage(Image.open('./picture_for_gui/gumpa.jpg').resize((100, 100), Image.ANTIALIAS))
+        goomba_image = ImageTk.PhotoImage(Image.open('./picture_for_gui/goomba.jpg').resize((100, 100), Image.ANTIALIAS))
         cell_image = ImageTk.PhotoImage(Image.open('./picture_for_gui/cell.png').resize((100, 100), Image.ANTIALIAS))
         flag_image = ImageTk.PhotoImage(Image.open('./picture_for_gui/flag.jpg').resize((100, 100), Image.ANTIALIAS))
 
@@ -140,7 +140,7 @@ class GraphicalUserInterface():
 
 
                     elif self.path[self.step][r][c + super_mario_index_j] == "G":
-                        gumpa_label = ttk.Label(root, image=gumpa_image)
+                        gumpa_label = ttk.Label(root, image=goomba_image)
                         gumpa_label.grid(column=c, row=r)
 
                     elif self.path[self.step][r][c + super_mario_index_j] == "L":
