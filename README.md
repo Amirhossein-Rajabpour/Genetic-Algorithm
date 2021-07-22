@@ -18,7 +18,21 @@ and `selection`:
 
 that you can choose from. Also you can the number of `initial population` and `mutation probability`.
 <br>
-Check full description [here](https://github.com/Amirhossein-Rajabpour/Genetic-Algorithm/blob/main/AI_P2.pdf)
+A sample for inputs: <br>
+
+
+![alt text](https://github.com/Amirhossein-Rajabpour/Genetic-Algorithm/blob/main/sample%20run%20l9.jpg "sample run")
+
+<br>
+A sample run with GUI (Level 8):
+
+
+![alt text](https://github.com/Amirhossein-Rajabpour/Genetic-Algorithm/blob/main/sample_run_level8.gif)
+
+
+Check full description (in persian): [here](https://github.com/Amirhossein-Rajabpour/Genetic-Algorithm/blob/main/AI_P2.pdf)
+<br>
+Project report (in persian): [here](https://github.com/Amirhossein-Rajabpour/Genetic-Algorithm/blob/main/AI_P2_Report.pdf)
 <br>
 Check our other AI Course projects:
 * [Project 1: Searching Algorithms (IDS, BBFS, A*)](https://github.com/arminZolfaghari/AI_project1)
