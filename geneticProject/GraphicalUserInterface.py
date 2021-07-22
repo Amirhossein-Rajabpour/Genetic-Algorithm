@@ -165,12 +165,3 @@ class GraphicalUserInterface():
             self.step += 1
             root.after(1000, self.Visualize)
         root.mainloop()
-
-#
-# game_plate_arr = create_game_plate_arr("__GM__LL")
-# print(game_plate_arr)
-# movement = get_sequence_movement("01010220", game_plate_arr)
-# print(movement)
-# g = GraphicalUserInterface(movement)
-# g.Visualize()
-
