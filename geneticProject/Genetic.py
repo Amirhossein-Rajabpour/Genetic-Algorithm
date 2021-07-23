@@ -1,6 +1,6 @@
 from AdditionalFunctions import *
 from Chromosome import *
-
+import math
 MAX_GENERATION = 10000
 
 
